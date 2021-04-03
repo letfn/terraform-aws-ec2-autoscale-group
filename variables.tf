@@ -87,7 +87,16 @@ variable "block_device_mappings" {
 variable "instance_market_options" {
   description = "The market (purchasing) option for the instances"
 
-  type = map(any)
+  type = object({
+    market_type = string
+    spot_options = object({
+      block_duration_minutes         = number
+      instance_interruption_behavior = string
+      max_price                      = number
+      spot_instance_type             = string
+      valid_until                    = string
+    })
+  })
 
   default = null
 }
